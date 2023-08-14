@@ -43,18 +43,69 @@ void makeSureThisIsACat(AnimalType animalType){
 
 class Person {
 
+  final String name;
+
+  Person(this.name);
+
   void run(){
-    print('Running!');
+    print('$name is Running!');
   }
 
   void breathe(){
-    print('breathing...');
+    print('$name is breathing...');
+  }
+
+}
+
+abstract class LivingThing{
+  void breathe(){
+    print('Living Thing is breathing');
+  }
+
+  void move(){
+    print('I am moving');
   }
 }
 
-void test(){
-  final person = Person();
+class Cat extends Object{
+  final String name;
 
+  Cat(this.name);
+
+  factory Cat.fluffBall(){
+    return Cat('FluffBall');
+  }
+
+  void breathe(){
+    print('$name is breathing.');
+  }
+
+
+
+  @override
+  bool operator == (covariant Cat other) => other.name == name;
+
+  @override
+  int get hashCode => name.hashCode;
+
+
+}
+
+void test(){
+  final fluffers = Cat.fluffBall();
+  final person = Person('John');
+
+
+  final cat1 = Cat('Foo');
+  final cat2 = Cat('Foo');
+
+  if (cat1 == cat2){
+    print('They\' both foo!');
+  } else {
+    print(cat1.name + 'has different name to' + cat2.name);
+  }
+  print(fluffers.name);
+  fluffers.breathe();
   person.run();
   person.breathe();
 }
@@ -72,8 +123,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     chapter5NullAwareAssignmentOperator(null, 'Pedere', 'Viojan');
     chapter6(AnimalType.bunny);
-    Person().run();
-    Person().breathe();
+    Person('Alvic').run();
+    Person('Alvic').breathe();
     test();
     return MaterialApp(
       title: 'Flutter Demo',
